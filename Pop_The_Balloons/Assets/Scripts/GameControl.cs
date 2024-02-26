@@ -28,8 +28,8 @@ public class GameControl : MonoBehaviour
         btnRestart.gameObject.SetActive(false);
         btnMainMenu.gameObject.SetActive(false);
         
-        TimeText.text = "SURE: 60";
-        ScoreText.text = "PUAN: " + score;
+        TimeText.text = "TIME: 60";
+        ScoreText.text = "SCORE: " + score;
 
         isGameContinue = true;
     }
@@ -43,7 +43,7 @@ public class GameControl : MonoBehaviour
             {
                 timer -= Time.deltaTime;        // zaman sayacý saniyede 1 azalsýn
 
-                TimeText.text = "SURE: " + (int)timer;
+                TimeText.text = "TIME: " + (int)timer;
 
 
             }
@@ -74,7 +74,7 @@ public class GameControl : MonoBehaviour
     public void AddBalloon()        // balon patlatýldýðýnda kullanýlacak fonksiyon (BalloonControl Scripti içerisinde)
     {
         score++;
-        ScoreText.text = "PUAN: " + score;
+        ScoreText.text = "SCORE: " + score;
     }
 
     public void DecreaseBalloon()   // balon kaçtýðýnda kullanýlacak fonksiyon
@@ -86,7 +86,7 @@ public class GameControl : MonoBehaviour
             isGameContinue = false;
             DestroyAll();
             StartCoroutine(Wait());
-            ScoreText.text = "PUAN: -";
+            ScoreText.text = "SCORE: -";
             FinalText.text = "GAME OVER!";
             btnRestart.gameObject.SetActive(true);
             btnMainMenu.gameObject.SetActive(true);
@@ -94,7 +94,7 @@ public class GameControl : MonoBehaviour
         }
         else
         {
-            ScoreText.text = "PUAN: " + score;
+            ScoreText.text = "SCORE: " + score;
         }
     }
 
