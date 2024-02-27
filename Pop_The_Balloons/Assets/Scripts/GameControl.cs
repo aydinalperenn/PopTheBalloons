@@ -16,10 +16,14 @@ public class GameControl : MonoBehaviour
     public TextMeshProUGUI FinalText;
     public Button btnRestart;
     public Button btnMainMenu;
+    [SerializeField] private TextMeshProUGUI highScoreText;
+    [SerializeField] private GameObject newHighScore;
 
 
     public float timer = 61f;      // zaman sayacý 61 olmalý
     private int score = 0;          // patlatýlan balon
+
+    [SerializeField] private AudioSource audioSource;
 
 
 
@@ -49,10 +53,27 @@ public class GameControl : MonoBehaviour
             }
             else    // oyun bittiði zaman
             {
+                audioSource.Stop();
+                audioSource.Play();
+
                 isGameContinue = false;
                 DestroyAll();
                 StartCoroutine(Wait());
-                FinalText.text = "SUCCESSFUL!";
+                
+                int highScore = PlayerPrefs.GetInt("HighScore", 0);
+
+                if(score > highScore)
+                {
+                    highScoreText.text = "HighScore: " + score;
+                    newHighScore.SetActive(true);
+                    PlayerPrefs.SetInt("HighScore", score);
+                }
+                else if (score < highScore)
+                {
+                    highScoreText.text = "HighScore: " + highScore;
+                }
+
+                FinalText.text = "Level Completed!";
                 btnRestart.gameObject.SetActive(true);
                 btnMainMenu.gameObject.SetActive(true);
             }
@@ -73,6 +94,9 @@ public class GameControl : MonoBehaviour
 
     public void AddBalloon()        // balon patlatýldýðýnda kullanýlacak fonksiyon (BalloonControl Scripti içerisinde)
     {
+        audioSource.Stop();
+        audioSource.Play();
+        
         score++;
         ScoreText.text = "SCORE: " + score;
     }
@@ -83,11 +107,16 @@ public class GameControl : MonoBehaviour
         
         if(score < 0)
         {
+            audioSource.Stop();
+            audioSource.Play();
+
             isGameContinue = false;
             DestroyAll();
             StartCoroutine(Wait());
             ScoreText.text = "SCORE: -";
             FinalText.text = "GAME OVER!";
+
+            highScoreText.text = "HighScore: " + PlayerPrefs.GetInt("HighScore", 0);
             btnRestart.gameObject.SetActive(true);
             btnMainMenu.gameObject.SetActive(true);
             
