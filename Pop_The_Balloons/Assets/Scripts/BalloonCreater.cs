@@ -10,7 +10,10 @@ public class BalloonCreater : MonoBehaviour
 
     public GameObject balloon;      // prefab
     float coolDown = 0.75f;         // balonu kaç saniyede bir oluþturmak istiyorsak
-    float timer = 0f;               // zaman sayacý          
+    float timer = 0f;               // zaman sayacý
+                                    // 
+    [SerializeField] private Transform rightBound;
+    [SerializeField] private Transform leftBound;
 
 
 
@@ -34,7 +37,8 @@ public class BalloonCreater : MonoBehaviour
             timer -= Time.deltaTime;    // zaman sayacý her saniye düþsün
             if (timer < 0 && gameControlScript.timer > 0 && gameControlScript.isGameContinue == true)
             {
-                GameObject go = Instantiate(balloon, new Vector3(UnityEngine.Random.Range(-1.88f, 1.88f), -6f, 0), Quaternion.identity) as GameObject;  // zaman sayacýn 0'ýn altýna düþtüðünde obje oluþtur
+                //GameObject go = Instantiate(balloon, new Vector3(UnityEngine.Random.Range(-1.88f, 1.88f), -6f, 0), Quaternion.identity) as GameObject;  // zaman sayacýn 0'ýn altýna düþtüðünde obje oluþtur
+                GameObject go = Instantiate(balloon, new Vector3(UnityEngine.Random.Range(leftBound.position.x, rightBound.position.x), -6f, 0), Quaternion.identity) as GameObject;  // zaman sayacýn 0'ýn altýna düþtüðünde obje oluþtur
                 go.GetComponent<Rigidbody2D>().AddForce(new Vector3(0, UnityEngine.Random.Range(40f * temp, 110f * temp), 0));  // yukarý çýkmasý için bir kuvvet uyguladýk (hýzý rastgele belirleniyor)
                 timer = coolDown;
             }
