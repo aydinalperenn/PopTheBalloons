@@ -25,6 +25,10 @@ public class GameControl : MonoBehaviour
 
     [SerializeField] private AudioSource audioSource;
 
+    private void Awake()
+    {
+        audioSource.volume = SoundLevels.sfxLevel;
+    }
 
 
     void Start()
