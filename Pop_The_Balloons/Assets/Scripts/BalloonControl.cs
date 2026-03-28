@@ -10,18 +10,16 @@ public class BalloonControl : MonoBehaviour
     private void Start()
     {
         // ismi _Scripts_General olan oyun objesinin GameControl isimli componentini (script dosyasýný) bizim script deðiþkenimie atadýk
-        control = GameObject.Find("_Scripts_General").GetComponent<GameControl>();
+        control = GameObject.Find("Scripts").GetComponent<GameControl>();
     }
 
     private void Update()
     {
-
         if(this.gameObject.transform.position.y > 5.86f)
         {
             control.DecreaseBalloon();
             Destroy(this.gameObject);
         }
-        
     }
 
 
